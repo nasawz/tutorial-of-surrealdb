@@ -4,6 +4,8 @@ import 'dart:async';
 import 'package:get/get_connect.dart';
 import 'package:get/get_connect/http/src/request/request.dart';
 
+// https://juejin.cn/post/6950514701969129486
+
 class BaseProvider extends GetConnect {
   // TODO !!! not work
   FutureOr<Request> authInterceptor(request) async {
@@ -19,7 +21,6 @@ class BaseProvider extends GetConnect {
   void onInit() {
     httpClient.baseUrl = "http://152.136.153.160:8000/sql";
     httpClient.timeout = Duration(seconds: 60);
-    // httpClient.addAuthenticator(authInterceptor);
     httpClient.addRequestModifier<void>((request) {
       request.headers['Accept'] = "application/json";
       request.headers['NS'] = "test";
@@ -30,5 +31,7 @@ class BaseProvider extends GetConnect {
       request.headers.addAll(headers);
       return request;
     });
+
+    super.onInit();
   }
 }
